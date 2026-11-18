@@ -316,12 +316,12 @@ root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# openssl req -x509 -nodes -da
 
 root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# ll
 total 24
-drwxr-xr-x 2 root        root        4096 июл  5 21:50 ./
-drwxr-xr-x 7 bogatyrevam bogatyrevam 4096 июл  5 21:41 ../
--rw-r--r-- 1 root        root         275 июл  5 21:40 configmap-web.yaml
--rw-r--r-- 1 root        root         711 июл  5 21:42 deployment.yaml
--rw-r--r-- 1 root        root        1135 июл  5 21:50 tls.crt
--rw------- 1 root        root        1708 июл  5 21:50 tls.key
+drwxr-xr-x 2 root        root        4096 ноя 17 21:50 ./
+drwxr-xr-x 7 bogatyrevam bogatyrevam 4096 ноя 17 21:41 ../
+-rw-r--r-- 1 root        root         275 ноя 17 21:40 configmap-web.yaml
+-rw-r--r-- 1 root        root         711 ноя 17 21:42 deployment.yaml
+-rw-r--r-- 1 root        root        1135 ноя 17 21:50 tls.crt
+-rw------- 1 root        root        1708 ноя 17 21:50 tls.key
 ```
 
 ```
