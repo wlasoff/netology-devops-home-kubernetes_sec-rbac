@@ -218,11 +218,10 @@ rules:
 
 ---
 
-# Решение заданий
+# Решение задания 1
 
-## Задание 1
 ```bash
-root@vm:/home/bogatyrevam/Desktop/5-storages# nano configmap-web.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/5-storages# nano configmap-web.yaml
 ```
 configmap-web.yaml
 ```yaml
@@ -244,7 +243,7 @@ data:
     </html>
 ```
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# nano deployment.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# nano deployment.yaml
 ```
 deployment.yaml
 ```yaml
@@ -286,16 +285,16 @@ spec:
 
 Применение манифестов
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl apply -f configmap-web.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl apply -f configmap-web.yaml
 configmap/nginx-config created
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl apply -f deployment.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl apply -f deployment.yaml
 deployment.apps/web-app created
 ```
 
 Вывод `curl`
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl exec -itc multitool web-app-bc7689f67-8shtj -- curl localhost |& head
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl exec -itc multitool web-app-bc7689f67-8shtj -- curl localhost |& head
 <!DOCTYPE html>
 <html>
 <head>
@@ -307,15 +306,15 @@ root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl exec -itc mult
 </html>
 ```
 
-## Задание 2
+## Решение задания 2
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout tls.key -out tls.crt -subj "/CN=myapp.example.com"
 ....+......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*.+..+...+...+....+........+...+...+.+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*......................+...+........+.+...........+.......+..+...+......+......+.+........+.......+..............+....+.....+....+...........+.........+.......+.....+.+..+.......+...+...........+..........+.....+......+........................+.......+...+..+.......+..+.+........+.+........+...+.........+.+..+..........+......+.....+................+...+..+.........+.+...+.....+.......+........+......+.......+..+......+.......+..+.......+......+............+..+.+...+..+............+.+............+..............+..........+.....+.+..+...+....+...+..+...............+......+..........+..+...............+...+...+...............+....+...+...+......+......+.................+..........+...............+..+.+..................+..+....+........+.+......+...+..+...............+...+......+......+......+.......+...........+....+........+.......+..+..........+...+...+..+.+..+...+.......+..+.+.....+.+......+...+............+.....+....+...+..+.........+................+...+......+......+...+...+.....+............+.+...........+.+..+...+..........+..............+.+..............+....+......+...+......+......+......+..+..........+......+..............+.......+......+..+......+.+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 .....+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*.+..+.......+...+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*..+..+.......+..+......+.......+..+.........+.+...+......+.....+.......+........+.+.....................+.....+...+....+..+....+.........+...+...+...........+...+.+.....+..........+..+..........+.........+.....+.+..+.+.........+............+.....................+.....+....+........+.+.....+....+...........+.......+........+............+.......+..+.+........+.+......+..............+.+............+..+......+....+...+......+..+...+....+..+.+..+............+..........+...........+...+......+.+...+............+...+..............+..........+......+.....+....+.....+.......+......+..+.+..+..........+.....+...+......+......+...+................+........+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -----
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# ll
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# ll
 total 24
 drwxr-xr-x 2 root        root        4096 июл  5 21:50 ./
 drwxr-xr-x 7 bogatyrevam bogatyrevam 4096 июл  5 21:41 ../
@@ -326,15 +325,15 @@ drwxr-xr-x 7 bogatyrevam bogatyrevam 4096 июл  5 21:41 ../
 ```
 
 ```
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl create secret tls myapp-tls --key tls.key --cert tls.crt
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl create secret tls myapp-tls --key tls.key --cert tls.crt
 secret/myapp-tls created
 ```
 
 Читаем и переводим в `base64`
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# base64 -w 0 tls.key
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# base64 -w 0 tls.key
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# base64 -w 0 tls.crt
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# base64 -w 0 tls.crt
 ```
 Что получил, вставил в `secret-tls.yaml`
 ```bash
@@ -348,11 +347,11 @@ data:
   tls.key: LS0tLS1CRUdJTiBQUklWQVR...
 ```
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl apply -f secret-tls.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl apply -f secret-tls.yaml
 secret/tls-secret created
 ```
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl describe secret myapp-tls |& tail -4
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl describe secret myapp-tls |& tail -4
 Data
 ====
 tls.crt:  1135 bytes
@@ -361,9 +360,9 @@ tls.key:  1708 bytes
 
 Создаем и применяем `ingress-tls`
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# nano ingress-tls.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# nano ingress-tls.yaml
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl apply -f ingress-tls.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl apply -f ingress-tls.yaml
 deployment.apps/myapp created
 service/myapp-service created
 ingress.networking.k8s.io/myapp-ingress created
@@ -436,7 +435,7 @@ spec:
 
 curl
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# curl -H 'Host: myapp.example.com' -ks 'https://localhost/' |& head -2
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# curl -H 'Host: myapp.example.com' -ks 'https://localhost/' |& head -2
 <!DOCTYPE html>
 <html>
 ```
@@ -444,16 +443,16 @@ root@vm:/home/bogatyrevam/Desktop/6-config_rbac# curl -H 'Host: myapp.example.co
 ## Задание 3
 
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s enable rbac
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s enable rbac
 Infer repository core for addon rbac
 Enabling RBAC
 Reconfiguring apiserver
 Restarting apiserver
 RBAC is enabled
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# openssl genrsa -out developer.key 2048
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# openssl genrsa -out developer.key 2048
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# nano role-pod-reader.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# nano role-pod-reader.yaml
 ```
 
 ```yaml
@@ -475,7 +474,7 @@ rules:
 ```
 
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# nano rolebinding-developer.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# nano rolebinding-developer.yaml
 ```
 
 ```yaml
@@ -494,12 +493,12 @@ roleRef:
 ```
 
 ```bash
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl apply -f role-pod-reader.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl apply -f role-pod-reader.yaml
 role.rbac.authorization.k8s.io/developer-role created
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl apply -f rolebinding-developer.yaml
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl apply -f rolebinding-developer.yaml
 rolebinding.rbac.authorization.k8s.io/developer_role_binding created
 
-root@vm:/home/bogatyrevam/Desktop/6-config_rbac# microk8s kubectl auth can-i get po --as=developer
+root@ubuntu2204:/home/ubuntu/Desktop/6-config_rbac# microk8s kubectl auth can-i get po --as=developer
 yes
 ```
